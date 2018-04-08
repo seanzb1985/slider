@@ -26,6 +26,10 @@ function log(value) {
 ReactDOM.render(
   <div>
     <div style={style}>
+      <p>Infinite slider Range</p>
+      <Slider.InfiniteRange min={0} max={1000} onAfterChange={log} defaultValue={[20,300]} />
+    </div>
+    <div style={style}>
       <p>Slider with marks, `step=null`</p>
       <Slider min={-10} marks={marks} step={null} onChange={log} defaultValue={20} />
     </div>

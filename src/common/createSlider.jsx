@@ -256,10 +256,12 @@ export default function createSlider(Component) {
     saveHandle(index, handle) {
       this.handlesRefs[index] = handle;
     }
-
     onClickMarkLabel = (e, value) => {
       e.stopPropagation();
-      this.onChange({ value });
+      this.OnMarkLabelClick(value);
+    }
+    onClickMarkLabelMouseUp = (e) => {
+      e.stopPropagation();
     }
 
     render() {
@@ -327,6 +329,7 @@ export default function createSlider(Component) {
           <Marks
             className={`${prefixCls}-mark`}
             onClickLabel={disabled ? noop : this.onClickMarkLabel}
+            onClickLabelMouseUp={disabled ? noop : this.onClickMarkLabelMouseUp}
             vertical={vertical}
             marks={marks}
             included={included}

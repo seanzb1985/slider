@@ -20,6 +20,9 @@ class Range extends React.Component {
     allowCross: PropTypes.bool,
     disabled: PropTypes.bool,
     tabIndex: PropTypes.arrayOf(PropTypes.number),
+    haveInfiniteValue: PropTypes.bool,
+    realMax: PropTypes.number,
+    realMin: PropTypes.number,
   };
 
   static defaultProps = {
@@ -27,6 +30,7 @@ class Range extends React.Component {
     allowCross: true,
     pushable: false,
     tabIndex: [],
+    haveInfiniteValue: false,
   };
 
   constructor(props) {
@@ -103,7 +107,7 @@ class Range extends React.Component {
       handle: this.prevMovedHandleIndex,
       recent: this.prevMovedHandleIndex,
     });
-
+    
     const prevValue = bounds[this.prevMovedHandleIndex];
     if (value === prevValue) return;
 
@@ -292,9 +296,17 @@ class Range extends React.Component {
   }
 
   trimAlignValue(v, handle, nextProps = {}) {
+    const { haveInfiniteValue, realMax, realMin, min, max }= this.props;
     const mergedProps = { ...this.props, ...nextProps };
     const valInRange = utils.ensureValueInRange(v, mergedProps);
     const valNotConflict = this.ensureValueNotConflict(handle, valInRange, mergedProps);
+    if(haveInfiniteValue){
+      if(valNotConflict > realMax){
+        return parseFloat(max);
+      }else if(valNotConflict < realMin){
+        return parseFloat(min);
+      }
+    }
     return utils.ensureValuePrecision(valNotConflict, mergedProps);
   }
 
@@ -314,6 +326,27 @@ class Range extends React.Component {
     }
     /* eslint-enable eqeqeq */
     return val;
+  }
+
+  OnMarkLabelClick = (value) => {
+    if (this.props.haveInfiniteValue) {
+      this.onInfiniteRangeLabelClick(value);
+    }
+  }
+  onInfiniteRangeLabelClick = (value) => {
+    const props = this.props;
+    const leftValue = this.state.bounds[0];
+    const rightValue = this.state.bounds[1];
+    let newBounds;
+    if (value === props.realMax) {
+      newBounds = [leftValue, value];
+    } else if (value === props.realMin) {
+      newBounds = [value, rightValue];
+    }
+    this.setState({
+      bounds: newBounds,
+    })
+    props.onChange(newBounds);
   }
 
   render() {

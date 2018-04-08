@@ -10,6 +10,7 @@ const Marks = ({
   lowerBound,
   max, min,
   onClickLabel,
+  onClickLabelMouseUp,
 }) => {
   const marksKeys = Object.keys(marks);
   const marksCount = marksKeys.length;
@@ -54,6 +55,7 @@ const Marks = ({
         key={point}
         onMouseDown={(e) => onClickLabel(e, point)}
         onTouchStart={(e) => onClickLabel(e, point)}
+        onMouseUp={(e) => onClickLabelMouseUp(e, point)}
       >
         {markLabel}
       </span>

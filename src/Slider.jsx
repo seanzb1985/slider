@@ -136,6 +136,9 @@ class Slider extends React.Component {
     const val = utils.ensureValueInRange(v, mergedProps);
     return utils.ensureValuePrecision(val, mergedProps);
   }
+  OnMarkLabelClick = (value) => {
+    this.onChange({ value });
+  }
 
   render() {
     const {
