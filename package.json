@@ -81,6 +81,7 @@
   "dependencies": {
     "babel-runtime": "6.x",
     "classnames": "^2.2.5",
+    "eslint-config-defaults": "^9.0.0",
     "prop-types": "^15.5.4",
     "rc-tooltip": "^3.7.0",
     "rc-util": "^4.0.4",
