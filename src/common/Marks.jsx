@@ -15,7 +15,8 @@ const Marks = ({
   const marksKeys = Object.keys(marks);
   const marksCount = marksKeys.length;
   const unit = marksCount > 1 ? 100 / (marksCount - 1) : 100;
-  const markWidth = unit * 0.9;
+  let markWidth = unit * 0.9;
+  markWidth = markWidth > 20 ? 20 : markWidth;
 
   const range = max - min;
   const elements = marksKeys.map(parseFloat).sort((a, b) => a - b).map(point => {

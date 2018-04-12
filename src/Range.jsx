@@ -347,6 +347,7 @@ class Range extends React.Component {
       bounds: newBounds,
     })
     props.onChange(newBounds);
+    props.onAfterChange(newBounds);
   }
 
   render() {
