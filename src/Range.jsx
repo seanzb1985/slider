@@ -346,8 +346,7 @@ class Range extends React.Component {
     this.setState({
       bounds: newBounds,
     })
-    props.onChange(newBounds);
-    props.onAfterChange(newBounds);
+    props.onChange(newBounds, props.onAfterChange);
   }
 
   render() {
