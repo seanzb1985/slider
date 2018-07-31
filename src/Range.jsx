@@ -117,6 +117,7 @@ class Range extends React.Component {
   }
 
   onEnd = () => {
+    this.setState({ handle: null });
     this.removeDocumentEvents();
     this.props.onAfterChange(this.getValue());
   }
@@ -300,14 +301,16 @@ class Range extends React.Component {
     const mergedProps = { ...this.props, ...nextProps };
     const valInRange = utils.ensureValueInRange(v, mergedProps);
     const valNotConflict = this.ensureValueNotConflict(handle, valInRange, mergedProps);
+    
+    const ret = utils.ensureValuePrecision(valNotConflict, mergedProps);
     if(haveInfiniteValue){
-      if(valNotConflict > realMax){
+      if(ret > realMax){
         return parseFloat(max);
-      }else if(valNotConflict < realMin){
+      }else if(ret < realMin){
         return parseFloat(min);
       }
     }
-    return utils.ensureValuePrecision(valNotConflict, mergedProps);
+    return ret;
   }
 
   ensureValueNotConflict(handle, val, { allowCross, pushable: thershold }) {
