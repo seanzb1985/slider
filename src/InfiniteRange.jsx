@@ -2,34 +2,35 @@ import React from 'react';
 import Range from './Range';
 import PropTypes from 'prop-types';
 
-export default class InfiniteRange extends Range{
+export default class InfiniteRange extends React.Component{
+    static displayName = 'InfiniteRange';
     constructor(props) {
         super(props);
-        const { min, max, minLabel, maxLabel } = props;
-        this.customMax = max;
-        this.customMin = min;
-        const interval = this.customMax - this.customMin;
-        this.positiveInfinity = this.customMax + interval * 5 / 100;
-        this.negativeInfinity = this.customMin - interval * 5 / 100;
-        this.customMarks = {
-            [this.customMin]: <span title={this.customMin}>{minLabel}</span>,
-            [this.customMax]: <span title={this.customMax}>{maxLabel}</span>,
-          }
     }
     render() {
+        const { min, max, minLabel, maxLabel } = this.props;
+        const customMax = max;
+        const customMin = min;
+        const interval = customMax - customMin;
+        const positiveInfinity = customMax + interval * 5 / 100;
+        const negativeInfinity = customMin - interval * 5 / 100;
+        const customMarks = {
+            [customMin]: <span title={customMin}>{minLabel}</span>,
+            [customMax]: <span title={customMax}>{maxLabel}</span>,
+        };
         const customProps = {
-            min: this.negativeInfinity,
-            max: this.positiveInfinity,
-            marks: this.customMarks,
+            min: negativeInfinity,
+            max: positiveInfinity,
+            marks: customMarks,
             haveInfiniteValue: true,
-            realMin: this.customMin,
-            realMax: this.customMax,
-        }
-        const rangeProps = {...this.props, ...customProps}
+            realMin: customMin,
+            realMax: customMax
+        };
+        const rangeProps = {...this.props, ...customProps};
         return (
             <Range
                 {...rangeProps}
-                />
+            />
         );
     }
 }

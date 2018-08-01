@@ -297,7 +297,7 @@ class Range extends React.Component {
   }
 
   trimAlignValue(v, handle, nextProps = {}) {
-    const { haveInfiniteValue, realMax, realMin, min, max }= this.props;
+    const { haveInfiniteValue, realMax, realMin, min, max }= nextProps;
     const mergedProps = { ...this.props, ...nextProps };
     const valInRange = utils.ensureValueInRange(v, mergedProps);
     const valNotConflict = this.ensureValueNotConflict(handle, valInRange, mergedProps);
