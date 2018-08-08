@@ -109,6 +109,7 @@ export default function createSlider(Component) {
       this.removeDocumentEvents();
       this.onStart(position);
       this.addDocumentMouseEvents();
+      utils.pauseEvent(e);
     }
 
     onTouchStart = (e) => {
