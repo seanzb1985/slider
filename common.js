@@ -3529,6 +3529,7 @@ function createSlider(Component) {
         _this.removeDocumentEvents();
         _this.onStart(position);
         _this.addDocumentMouseEvents();
+        __WEBPACK_IMPORTED_MODULE_13__utils__["j" /* pauseEvent */](e);
       };
 
       _this.onTouchStart = function (e) {
