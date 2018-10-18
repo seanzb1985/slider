@@ -71,16 +71,16 @@ export default function createSlider(Component) {
 
     constructor(props) {
       super(props);
-
-      if (process.env.NODE_ENV !== 'production') {
-        const { step, max, min } = props;
-        warning(
-          step && Math.floor(step) === step ? (max - min) % step === 0 : true,
-          'Slider[max] - Slider[min] (%s) should be a multiple of Slider[step] (%s)',
-          max - min,
-          step
-        );
-      }
+      // For dashboard slider, 'max - min' can't always be a multiple of step, so remove this warning.
+      // if (process.env.NODE_ENV !== 'production') {
+      //   const { step, max, min } = props;
+      //   warning(
+      //     step && Math.floor(step) === step ? (max - min) % step === 0 : true,
+      //     'Slider[max] - Slider[min] (%s) should be a multiple of Slider[step] (%s)',
+      //     max - min,
+      //     step
+      //   );
+      // }
       this.handlesRefs = {};
     }
 
