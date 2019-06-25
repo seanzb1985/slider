@@ -303,10 +303,12 @@ class Range extends React.Component {
     const valNotConflict = this.ensureValueNotConflict(handle, valInRange, mergedProps);
     
     const ret = utils.ensureValuePrecision(valNotConflict, mergedProps);
-    if(haveInfiniteValue){
-      if(ret > realMax){
+    if (haveInfiniteValue) {
+      if (v === realMax || v === realMin) { // min or max label been clicked.
+        return v;
+      } else if (ret > realMax) {
         return parseFloat(max);
-      }else if(ret < realMin){
+      } else if (ret < realMin) {
         return parseFloat(min);
       }
     }
