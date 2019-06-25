@@ -4211,7 +4211,10 @@ var Range = function (_React$Component) {
 
     var ret = __WEBPACK_IMPORTED_MODULE_10__utils__["b" /* ensureValuePrecision */](valNotConflict, mergedProps);
     if (haveInfiniteValue) {
-      if (ret > realMax) {
+      if (v === realMax || v === realMin) {
+        // min or max label been clicked.
+        return v;
+      } else if (ret > realMax) {
         return parseFloat(max);
       } else if (ret < realMin) {
         return parseFloat(min);
