@@ -8,15 +8,20 @@ export default class InfiniteRange extends React.Component{
         super(props);
     }
     render() {
-        const { min, max, minLabel, maxLabel } = this.props;
+        const { min, max, minLabel, maxLabel, step } = this.props;
         const customMax = max;
         const customMin = min;
         const interval = customMax - customMin;
-        const positiveInfinity = customMax + interval * 5 / 100;
-        const negativeInfinity = customMin - interval * 5 / 100;
+        let positiveInfinity = customMax + interval * 5 / 100;
+        let negativeInfinity = customMin - interval * 5 / 100;
+        // fix bug: GEDS-6916.
+        if (step >= 1) {
+            positiveInfinity = Math.ceil(positiveInfinity);
+            negativeInfinity = Math.floor(negativeInfinity);
+        }
         const customMarks = {
             [customMin]: <span title={customMin}>{minLabel}</span>,
-            [customMax]: <span title={customMax}>{maxLabel}</span>,
+            [customMax]: <span title={customMax}>{maxLabel}</span>
         };
         const customProps = {
             min: negativeInfinity,
